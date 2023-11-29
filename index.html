@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Accordion</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="accordion">
+      <div v-for="item in accordionItems" :key="item.name" class="accordion-item">
+        <div class="accordion-header" @click="toggleAccordion(item)">
+          <span>{{ item.title }}</span>
+          <span class="accordion-icon">{{ item.expanded ? '-' : '+' }}</span>
+        </div>
+        <div v-if="item.expanded" class="accordion-content">
+          <slot name="content" :name="item.name"></slot>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        accordionItems: [
+          { name: 'name1', title: 'Section 1', expanded: true },
+          { name: 'name2', title: 'Section 2', expanded: true },
+          { name: 'name3', title: 'Section 3', expanded: true },
+          { name: 'name4', title: 'Section 4', expanded: true },
+          { name: 'name5', title: 'Section 5', expanded: true },
+          { name: 'name6', title: 'Section 6', expanded: true },
+        ]
+      },
+      methods: {
+        toggleAccordion(item) {
+          item.expanded = !item.expanded;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
